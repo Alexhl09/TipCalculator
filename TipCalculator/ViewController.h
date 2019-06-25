@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
-
+-(void) styleButtons;
+-(double) calculateTip:(double)  amount : (float) percentage;
 @end
 
