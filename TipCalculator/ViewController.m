@@ -26,8 +26,38 @@ float percentages[10] = {0.05,0.10,0.15,0.20,0.25,0.30,0.35,0.40,0.45,0.50};
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self styleButtons];
+    [tipLabel setTextColor:UIColor.whiteColor];
 
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
+    tap.cancelsTouchesInView = NO;
+    [self.view addGestureRecognizer:tap];
     // Do any additional setup after loading the view.
+}
+-(void)dismissKeyboard
+{
+    [billAmount resignFirstResponder];
+}
+
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+     [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    double amount = 0;
+    NSLog(@"Hello");
+    float total = 0;
+    
+    @try {
+        amount = [billAmount.text integerValue];
+    } @catch (NSException *exception) {
+      
+    } @finally {
+      
+    }
+    
+    total = [self calculateTip:amount :percentages[indexPath.row]];
+    
+
+    tipLabel.text = [NSString stringWithFormat:@"%0.2f", total];
 }
 
 /// Give some style to textbox billAmount
@@ -44,6 +74,7 @@ float percentages[10] = {0.05,0.10,0.15,0.20,0.25,0.30,0.35,0.40,0.45,0.50};
     [billAmount setTextAlignment:NSTextAlignmentRight];
     [billAmount setTitleFont:[UIFont fontWithName:@"Helvetica" size:30 ]];
     [billAmount setTitleColor:[UIColor colorWithRed:0.67 green:0.92 blue:1 alpha:1]];
+    [billAmount setTextColor:UIColor.whiteColor];
 }
 
 
@@ -76,11 +107,10 @@ float percentages[10] = {0.05,0.10,0.15,0.20,0.25,0.30,0.35,0.40,0.45,0.50};
     
     cellPercentage *myCell = [tableView dequeueReusableCellWithIdentifier:celldentifier];
     if (!myCell) {
-        myCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:celldentifier];
+        myCell = [[cellPercentage alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:celldentifier];
     }
   
-    myCell.textLabel.text = [NSString stringWithFormat:@"%0.0f%%",    roundf(percentages[indexPath.row] * 100)];
-    [[myCell textLabel] setFont: [UIFont fontWithName:@"Helvetica" size:30]];
+    myCell.percentageText.text = [NSString stringWithFormat:@"%0.0f%%",percentages[indexPath.row] * 100];
     
     return myCell;
 
@@ -89,6 +119,8 @@ float percentages[10] = {0.05,0.10,0.15,0.20,0.25,0.30,0.35,0.40,0.45,0.50};
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     return @"Percentage";
 }
+
+
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 10;
@@ -128,6 +160,7 @@ float percentages[10] = {0.05,0.10,0.15,0.20,0.25,0.30,0.35,0.40,0.45,0.50};
     
 }
 
+
 - (void)didUpdateFocusInContext:(nonnull UIFocusUpdateContext *)context withAnimationCoordinator:(nonnull UIFocusAnimationCoordinator *)coordinator {
     
 }
@@ -137,11 +170,14 @@ float percentages[10] = {0.05,0.10,0.15,0.20,0.25,0.30,0.35,0.40,0.45,0.50};
 }
 
 - (BOOL)shouldUpdateFocusInContext:(nonnull UIFocusUpdateContext *)context {
-    return YES;
+    return NO;
 }
 
 - (void)updateFocusIfNeeded {
 
 }
+
+
+
 
 @end
