@@ -8,21 +8,57 @@
 
 #import "ViewController.h"
 #import "cellPercentage.h"
+
 @import SkyFloatingLabelTextField;
 
 @interface ViewController ()
-@property (weak, nonatomic) IBOutlet SkyFloatingLabelTextFieldWithIcon *billAmount;
+@property (weak, nonatomic) IBOutlet UILabel *numberPeopleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *tipLabel;
+@property (weak, nonatomic) IBOutlet SkyFloatingLabelTextFieldWithIcon *billAmount;
+
+@property (weak, nonatomic) IBOutlet UILabel *tipValueLabel;
+
 
 
 @end
 
 @implementation ViewController
-@synthesize billAmount,tipLabel;
+@synthesize billAmount,tipLabel,numberPeopleLabel,tipValueLabel;
 
-
+static NSMutableArray * myArray;
+static NSMutableArray * myTotals;
+static NSMutableArray * perPerson;
 float percentages[10] = {0.05,0.10,0.15,0.20,0.25,0.30,0.35,0.40,0.45,0.50};
 
+static int numberOfPeople = 1;
++(NSMutableArray *) myArray{
+    return myArray;
+}
+
++(NSMutableArray *) myTotals{
+    return myTotals;
+}
+
+
++(NSMutableArray *) perPerson{
+    return perPerson;
+}
+
+
++(int)numberOfPeople;{
+    return numberOfPeople;
+}
++(void)changeNumberOfPeople : (int) people{
+    numberOfPeople = people;
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    if(numberOfPeople > 1){
+        [numberPeopleLabel setHidden:NO];
+    }else{
+        [numberPeopleLabel setHidden:YES];
+    }
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self styleButtons];
@@ -31,6 +67,12 @@ float percentages[10] = {0.05,0.10,0.15,0.20,0.25,0.30,0.35,0.40,0.45,0.50};
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
     tap.cancelsTouchesInView = NO;
     [self.view addGestureRecognizer:tap];
+    
+    if(numberOfPeople > 1){
+        [numberPeopleLabel setHidden:NO];
+    }else{
+        [numberPeopleLabel setHidden:YES];
+    }
     // Do any additional setup after loading the view.
 }
 -(void)dismissKeyboard
@@ -47,7 +89,7 @@ float percentages[10] = {0.05,0.10,0.15,0.20,0.25,0.30,0.35,0.40,0.45,0.50};
     float total = 0;
     
     @try {
-        amount = [billAmount.text integerValue];
+        amount = [billAmount.text doubleValue];
     } @catch (NSException *exception) {
       
     } @finally {
@@ -56,8 +98,15 @@ float percentages[10] = {0.05,0.10,0.15,0.20,0.25,0.30,0.35,0.40,0.45,0.50};
     
     total = [self calculateTip:amount :percentages[indexPath.row]];
     
-
+    tipValueLabel.text =[NSString stringWithFormat:@"Tip: %0.2f",  total - amount];
     tipLabel.text = [NSString stringWithFormat:@"%0.2f", total];
+    
+    
+    numberPeopleLabel.text  = [NSString stringWithFormat:@"%0.0f per person",(total/ ViewController.numberOfPeople)];
+    
+}
+- (IBAction)saveTip:(UIButton *)sender {
+    [myArray addObject:[NSDate init]];
 }
 
 /// Give some style to textbox billAmount
@@ -68,13 +117,15 @@ float percentages[10] = {0.05,0.10,0.15,0.20,0.25,0.30,0.35,0.40,0.45,0.50};
     [billAmount setPlaceholder:@"Insert bill"];
     [billAmount setTitle:@"Bill"];
     [billAmount setIconColor:UIColor.blueColor];
-    [billAmount setLineColor:[UIColor colorWithRed:0.67 green:0.92 blue:1 alpha:1]];
-    [billAmount setLineColor:[UIColor colorWithRed:0.39 green:0.71 blue:0.96 alpha:1]];
+
     [billAmount setFont:[UIFont fontWithName:@"Helvetica" size:30 ]];
     [billAmount setTextAlignment:NSTextAlignmentRight];
     [billAmount setTitleFont:[UIFont fontWithName:@"Helvetica" size:30 ]];
-    [billAmount setTitleColor:[UIColor colorWithRed:0.67 green:0.92 blue:1 alpha:1]];
+    [billAmount setLineColor: UIColor.whiteColor];
+    [billAmount setTitleColor:UIColor.whiteColor];
     [billAmount setTextColor:UIColor.whiteColor];
+    [billAmount setTintColor:UIColor.whiteColor];
+    [billAmount setSelectedTitleColor:UIColor.whiteColor];
 }
 
 
@@ -112,6 +163,7 @@ float percentages[10] = {0.05,0.10,0.15,0.20,0.25,0.30,0.35,0.40,0.45,0.50};
   
     myCell.percentageText.text = [NSString stringWithFormat:@"%0.0f%%",percentages[indexPath.row] * 100];
     
+ 
     return myCell;
 
 }

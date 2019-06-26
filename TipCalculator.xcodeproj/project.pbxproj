@@ -15,6 +15,9 @@
 		EADCDD1F22C2BFCF0096032C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EADCDD1D22C2BFCF0096032C /* LaunchScreen.storyboard */; };
 		EADCDD2222C2BFCF0096032C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EADCDD2122C2BFCF0096032C /* main.m */; };
 		EADCDD2E22C2D9480096032C /* cellPercentage.m in Sources */ = {isa = PBXBuildFile; fileRef = EADCDD2D22C2D9480096032C /* cellPercentage.m */; };
+		EADCDD3122C2EB290096032C /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = EADCDD3022C2EB290096032C /* Settings.m */; };
+		EADCDD3422C2EF480096032C /* History.m in Sources */ = {isa = PBXBuildFile; fileRef = EADCDD3322C2EF480096032C /* History.m */; };
+		EADCDD3722C2F1400096032C /* cellHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = EADCDD3622C2F1400096032C /* cellHistory.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +37,12 @@
 		EADCDD2822C2CB680096032C /* fa-regular-400.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fa-regular-400.ttf"; sourceTree = "<group>"; };
 		EADCDD2C22C2D9480096032C /* cellPercentage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cellPercentage.h; sourceTree = "<group>"; };
 		EADCDD2D22C2D9480096032C /* cellPercentage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = cellPercentage.m; sourceTree = "<group>"; };
+		EADCDD2F22C2EB290096032C /* Settings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Settings.h; sourceTree = "<group>"; };
+		EADCDD3022C2EB290096032C /* Settings.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Settings.m; sourceTree = "<group>"; };
+		EADCDD3222C2EF480096032C /* History.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = History.h; sourceTree = "<group>"; };
+		EADCDD3322C2EF480096032C /* History.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = History.m; sourceTree = "<group>"; };
+		EADCDD3522C2F1400096032C /* cellHistory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cellHistory.h; sourceTree = "<group>"; };
+		EADCDD3622C2F1400096032C /* cellHistory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = cellHistory.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +107,12 @@
 				EADCDD2122C2BFCF0096032C /* main.m */,
 				EADCDD2C22C2D9480096032C /* cellPercentage.h */,
 				EADCDD2D22C2D9480096032C /* cellPercentage.m */,
+				EADCDD2F22C2EB290096032C /* Settings.h */,
+				EADCDD3022C2EB290096032C /* Settings.m */,
+				EADCDD3222C2EF480096032C /* History.h */,
+				EADCDD3322C2EF480096032C /* History.m */,
+				EADCDD3522C2F1400096032C /* cellHistory.h */,
+				EADCDD3622C2F1400096032C /* cellHistory.m */,
 			);
 			path = TipCalculator;
 			sourceTree = "<group>";
@@ -217,7 +232,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				EADCDD1722C2BFCF0096032C /* ViewController.m in Sources */,
+				EADCDD3722C2F1400096032C /* cellHistory.m in Sources */,
 				EADCDD2E22C2D9480096032C /* cellPercentage.m in Sources */,
+				EADCDD3422C2EF480096032C /* History.m in Sources */,
+				EADCDD3122C2EB290096032C /* Settings.m in Sources */,
 				EADCDD2222C2BFCF0096032C /* main.m in Sources */,
 				EADCDD1422C2BFCF0096032C /* AppDelegate.m in Sources */,
 			);
