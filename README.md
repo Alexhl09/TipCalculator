@@ -18,7 +18,7 @@ The following **optional** features are implemented:
 
 The following **additional** features are implemented:
 
-* [] This app can split an account for several people and show the amount of money each one has to pay.
+ [*] This app can split an account for several people and show the amount of money each one has to pay.
 
 Here's a walkthrough of implemented user stories:
 
