@@ -17,9 +17,15 @@
 
 @implementation History
 
+NSMutableArray * dates;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    dates = [defaults objectForKey:@"myDates"];
+    
+    NSLog(dates);
     // Do any additional setup after loading the view.
 }
 

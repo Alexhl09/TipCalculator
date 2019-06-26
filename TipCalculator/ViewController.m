@@ -44,6 +44,45 @@ static int numberOfPeople = 1;
     return perPerson;
 }
 
+- (IBAction)defaultCalculation:(UIBarButtonItem *)sender {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    double percentage = [defaults doubleForKey:@"default_tip_per"];
+    
+    double amount = 0;
+    NSLog(@"Hello");
+    float total = 0;
+    
+    @try {
+        amount = [billAmount.text doubleValue];
+    } @catch (NSException *exception) {
+        
+    } @finally {
+        
+    }
+    
+    total = [self calculateTip:amount : percentage];
+    
+    tipValueLabel.text =[NSString stringWithFormat:@"Tip: %0.2f",  total - amount];
+    tipLabel.text = [NSString stringWithFormat:@"%0.2f", total];
+    
+    
+    numberPeopleLabel.text  = [NSString stringWithFormat:@"%0.0f per person",(total/ ViewController.numberOfPeople)];
+    
+    
+
+    [defaults setDouble:total forKey:@"default_tip_total"];
+    [defaults synchronize];
+    
+    
+    
+    [defaults setDouble:(total/ ViewController.numberOfPeople) forKey:@"default_tip_person"];
+    [defaults synchronize];
+    
+    
+    [defaults setInteger:ViewController.numberOfPeople forKey:@"people"];
+    [defaults synchronize];
+    
+}
 
 +(int)numberOfPeople;{
     return numberOfPeople;
@@ -64,6 +103,24 @@ static int numberOfPeople = 1;
     [self styleButtons];
     [tipLabel setTextColor:UIColor.whiteColor];
 
+    [billAmount becomeFirstResponder];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    double doubleValue = [defaults doubleForKey:@"default_tip_total"];
+    double doublePerson = [defaults doubleForKey:@"default_tip_person"];
+    int intPerson = [defaults integerForKey:@"people"];
+    
+    if(doubleValue > 0 && doublePerson > 0){
+        tipLabel.text =  [NSString stringWithFormat:@"%0.2f", doubleValue];
+        numberPeopleLabel.text  =  [NSString stringWithFormat:@"%0.0f per person",doublePerson];;
+        
+        
+    }
+    
+    if(intPerson > 0){
+    
+        [ViewController changeNumberOfPeople:intPerson];
+    }
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
     tap.cancelsTouchesInView = NO;
     [self.view addGestureRecognizer:tap];
@@ -73,6 +130,11 @@ static int numberOfPeople = 1;
     }else{
         [numberPeopleLabel setHidden:YES];
     }
+    
+    
+   
+    
+    
     // Do any additional setup after loading the view.
 }
 -(void)dismissKeyboard
@@ -104,10 +166,23 @@ static int numberOfPeople = 1;
     
     numberPeopleLabel.text  = [NSString stringWithFormat:@"%0.0f per person",(total/ ViewController.numberOfPeople)];
     
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setDouble:total forKey:@"default_tip_total"];
+    [defaults synchronize];
+    
+    
+
+    [defaults setDouble:(total/ ViewController.numberOfPeople) forKey:@"default_tip_person"];
+    [defaults synchronize];
+    
+    
+    [defaults setInteger:ViewController.numberOfPeople forKey:@"people"];
+    [defaults synchronize];
+    
+
 }
-- (IBAction)saveTip:(UIButton *)sender {
-    [myArray addObject:[NSDate init]];
-}
+
 
 /// Give some style to textbox billAmount
 ///
